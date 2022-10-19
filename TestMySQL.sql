@@ -9,15 +9,15 @@ CREATE TABLE employee (
 	first_name VARCHAR(50) NOT NULL,
 	last_name VARCHAR(50) NOT NULL,
 	age INT NOT NULL,
-	mobile_number VARCHAR(15) NOT NULL,
-	address VARCHAR(255) NOT NULL,
+	mobile_number BIGINT NOT NULL,
+	address VARCHAR(50) NOT NULL,
 	PRIMARY KEY(id)
 );
 
 CREATE TABLE employee_salary (
 	id INT NOT NULL AUTO_INCREMENT,
 	fk_employee_id INT,
-	salary DOUBLE NOT NULL,
+	salary INT NOT NULL,
 	date DATE,
 	PRIMARY KEY (id),
 	FOREIGN KEY (fk_employee_id)
