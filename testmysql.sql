@@ -1,9 +1,11 @@
+-- Created hobby table 
 CREATE TABLE hobby (
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(50) NOT NULL,
 	PRIMARY KEY (id)
 );
 
+-- Created employee table
 CREATE TABLE employee (
 	id INT NOT NULL AUTO_INCREMENT,
 	first_name VARCHAR(50) NOT NULL,
@@ -14,6 +16,7 @@ CREATE TABLE employee (
 	PRIMARY KEY(id)
 );
 
+-- Created employee_salary table
 CREATE TABLE employee_salary (
 	id INT NOT NULL AUTO_INCREMENT,
 	fk_employee_id INT,
@@ -26,6 +29,7 @@ CREATE TABLE employee_salary (
 	ON UPDATE CASCADE
 );
 
+-- Created employee_hobby table
 CREATE TABLE employee_hobby (
 	id INT NOT NULL AUTO_INCREMENT,
 	fk_employee_id INT NOT NULL,
@@ -39,6 +43,7 @@ CREATE TABLE employee_hobby (
 	ON UPDATE CASCADE
 );
 
+-- Inserted multiple data in hobby table
 INSERT INTO hobby (name)
 VALUES ('Cricket'),
 ('Acting'),
@@ -46,6 +51,7 @@ VALUES ('Cricket'),
 ('Painting'),
 ('Cricket');
 
+-- Inserted multiple data in employee table
 INSERT INTO employee (first_name, last_name, age, mobile_number, address)
 VALUES ('devang', 'bajaniya', 24, '9898989898', 'bapunagar, ahmedabad'),
 ('Raj', 'Patel', 25, '9876589565', 'Nikol, ahmedabad'),
@@ -53,6 +59,7 @@ VALUES ('devang', 'bajaniya', 24, '9898989898', 'bapunagar, ahmedabad'),
 ('Dashrath', 'Darji', 27, '9868754985', 'Kalupur,Ahmedabad'),
 ('Pranav', 'Barot', 26, '7600879568', 'Naroda, Ahmedabad');
 
+-- Inserted multiple data in employee_salary table 
 INSERT INTO employee_salary (fk_employee_id, salary, date)
 Values (1, 13500, '2022-12-02'),
 (2, 13000, '2021-05-11'),
@@ -60,6 +67,7 @@ Values (1, 13500, '2022-12-02'),
 (4, 16000, '2019-07-19'),
 (5, 20000, '2021-05-06');
 
+-- Inserted multiple data in employee_hobby table
 INSERT INTO employee_hobby (fk_employee_id, fk_hobby_id)
 VALUES (1, 1),
 (2, 2),
@@ -67,69 +75,86 @@ VALUES (1, 1),
 (4, 4),
 (5, 5);
 
+-- Updated data in hobby table
 UPDATE hobby
 SET name = 'Dancing' 
 WHERE id = 2;
 
+-- Updated data in employee table
 UPDATE employee
 SET first_name = 'Rahul', last_name = 'Sharma'
 Where id = 1;
 
+-- Updated data in employee_salary table
 UPDATE employee_salary
 SET salary = 21000
 WHERE id = 5;
 
+-- Updated data in employee_hobby table
 UPDATE employee_hobby
 SET fk_employee_id = 2
 WHERE id = 1;
 
+-- Updated data in employee_hobby table
 UPDATE employee_hobby
 SET fk_employee_id = 1
 WHERE id = 1;
 
+-- Deleted data from hobby table 
 DELETE FROM hobby
 WHERE id = 1;
 
+-- Deleted data from hobby table
 DELETE FROM hobby
 WHERE id = 2;
 
+-- Deleted data from employee table
 DELETE FROM employee
 WHERE id = 1;
 
+-- Deleted data from employee table
 DELETE FROM employee
 WHERE id = 2;
 
+-- Truncate hobby table 
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE hobby;
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- Truncate employee table 
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE employee;
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- Truncate employee_salary table
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE employee_salary;
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- Truncate employee_hobby table
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE employee_hobby;
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- Separate select queries for all tables
 SELECT * FROM hobby;
 SELECT * FROM employee;
 SELECT * FROM employee_salary;
 SELECT * FROM employee_hobby;
 
+-- Created a select single query to get all employee name, all hobby name in single column
 SELECT CONCAT(e.first_name, ' ', e.last_name, ' - ', h.name) AS employeename_hobbyname
 FROM employee AS e
 INNER JOIN hobby AS h
 ON e.id = h.id;
 
+-- Created a select query to get employee name, employee salary
 SELECT CONCAT_WS(' ', e.first_name, e.last_name) AS full_name, es.salary
 FROM employee AS e
 INNER JOIN employee_salary AS es
 ON e.id = es.fk_employee_id;
 
+-- Created a select query to get employee name, total salary of employee, hobby name(used subquery for hobby name)
 SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, SUM(es.salary) AS total_salary,
 	(SELECT GROUP_CONCAT(DISTINCT h.name) FROM hobby AS h INNER JOIN employee ON h.id = e.id) AS hobby_name
 FROM employee AS e
