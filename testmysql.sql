@@ -119,3 +119,20 @@ SELECT * FROM hobby;
 SELECT * FROM employee;
 SELECT * FROM employee_salary;
 SELECT * FROM employee_hobby;
+
+SELECT CONCAT(e.first_name, ' ', e.last_name, ' - ', h.name) AS employeename_hobbyname
+FROM employee AS e
+INNER JOIN hobby AS h
+ON e.id = h.id;
+
+SELECT CONCAT_WS(' ', e.first_name, e.last_name) AS full_name, es.salary
+FROM employee AS e
+INNER JOIN employee_salary AS es
+ON e.id = es.fk_employee_id;
+
+SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, SUM(es.salary) AS total_salary,
+	(SELECT GROUP_CONCAT(DISTINCT h.name) FROM hobby AS h INNER JOIN employee ON h.id = e.id) AS hobby_name
+FROM employee AS e
+INNER JOIN employee_salary AS es
+ON e.id = es.fk_employee_id
+GROUP BY e.id;
