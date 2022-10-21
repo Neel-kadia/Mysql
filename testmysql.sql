@@ -162,4 +162,4 @@ INNER JOIN employee AS e
 ON e.id = eh.fk_employee_id
 INNER JOIN employee_salary AS es
 ON e.id = es.fk_employee_id
-GROUP BY eh.fk_employee_id;
+GROUP BY e.id;
