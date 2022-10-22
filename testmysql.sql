@@ -158,8 +158,8 @@ ON e.id = es.fk_employee_id;
 SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, SUM(es.salary) AS total_salary,
 	(SELECT h.name FROM hobby AS h WHERE h.id = eh.fk_hobby_id) AS hobby_name
 FROM employee AS e
-INNER JOIN employee_salary AS es
+LEFT JOIN employee_salary AS es
 ON es.fk_employee_id = e.id
-INNER JOIN employee_hobby AS eh
+LEFT JOIN employee_hobby AS eh
 ON eh.fk_employee_id = e.id
 GROUP BY e.id;
