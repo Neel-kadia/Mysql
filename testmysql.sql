@@ -144,9 +144,9 @@ SELECT * FROM employee_salary;
 SELECT * FROM employee_hobby;
 
 -- Created a select single query to get all employee name, all hobby name in single column
-SELECT CONCAT(e.first_name, ' ', e.last_name) AS employeename_hobbyname From employee AS e
+SELECT CONCAT(first_name, ' ', last_name) AS employeename_hobbyname From employee 
 UNION ALL
-SELECT name from hobby AS h;
+SELECT name from hobby;
 
 -- Created a select query to get employee name, employee salary
 SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, es.salary
@@ -163,4 +163,3 @@ ON es.fk_employee_id = e.id
 INNER JOIN employee_hobby AS eh
 ON eh.fk_employee_id = e.id
 GROUP BY e.id;
-
