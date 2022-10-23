@@ -156,10 +156,8 @@ ON e.id = es.fk_employee_id;
 
 -- Created a select query to get employee name, total salary of employee, hobby name(used subquery for hobby name)
 SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, SUM(es.salary) AS total_salary,
-	(SELECT h.name FROM hobby AS h WHERE h.id = eh.fk_hobby_id) AS hobby_name
-FROM employee_hobby AS eh
-RIGHT JOIN employee AS e 
-ON eh.fk_employee_id = e.id
+	(SELECT h.name FROM hobby AS h INNER JOIN employee_hobby AS eh ON h.id = eh.fk_hobby_id where eh.fk_employee_id = e.id) AS hobby_name
+FROM employee AS e
 LEFT JOIN employee_salary AS es
-ON es.fk_employee_id = e.id
+ON e.id = es.fk_employee_id
 GROUP BY e.id;
